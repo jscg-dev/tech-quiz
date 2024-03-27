@@ -6,7 +6,8 @@ using System.Text.Json.Serialization;
 namespace App.Domain.Entities;
 
 /// <summary>
-///     materia
+///     Courses Table
+///     Tabla de materias
 /// </summary>
 public class Course : DbMainTable
 {

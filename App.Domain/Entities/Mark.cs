@@ -3,7 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace App.Domain.Entities;
-
+/// <summary>
+///     Marks Table
+///     Tabla de Calificaciones
+/// </summary>
 public class Mark : DbMainTable
 {
     [

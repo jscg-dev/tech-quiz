@@ -4,7 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace App.Domain.Entities;
-
+/// <summary>
+///     Students Table
+///     Tabla de estudiantes
+/// </summary>
 public class Students : DbMainTable
 {
     [

@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace App.Domain.Entities.Schematics;
-
+/// <summary>
+///     Basic Structure for a Db Record
+/// </summary>
 public class DbMainTable
 {
     /// <summary>
-    ///     identificador único de registros en db
+    ///     db record unique indentifier (primary key)
     /// </summary>
     [
         Key,
@@ -19,7 +21,7 @@ public class DbMainTable
     ]
     public int Id { get; set; }
     /// <summary>
-    ///     fecha de creación del registro
+    ///     datetime of de record creation
     /// </summary>
     [
         Column("created_date", TypeName = "datetime", Order = 1),
@@ -29,7 +31,7 @@ public class DbMainTable
     ]
     public DateTime CreatedDate { set; get; } = DateTime.UtcNow;
     /// <summary>
-    ///     fecha de actualización del registro
+    ///     datetime of de record updated
     /// </summary>
     [
         Column("updated_date", TypeName = "datetime", Order = 2),

@@ -8,7 +8,9 @@ using System.Linq;
 using System.Reflection;
 
 namespace App.Domain.Context;
-
+/// <summary>
+///     DbContext for institution
+/// </summary>
 public class UContext : DbContext
 {
     public UContext(DbContextOptions opt) : base(opt) { }
@@ -59,7 +61,7 @@ public class UContext : DbContext
             _e.HasIndex(__ => __.AsigmentId)
             .IsUnique(true);
             _e.HasOne(__ => __.Asignment)
-            .WithMany(__ => __.Marks)
+            .WithOne(__ => __.Mark)
             .OnDelete(DeleteBehavior.NoAction);
         })
         .Entity<Students>(_e =>
@@ -67,39 +69,30 @@ public class UContext : DbContext
             _e.ToTable("students");
             _e.HasIndex(__ => __.Dni)
             .IsUnique(true);
+        })
+        .Entity<User>(_e =>
+        {
+            _e.ToTable("users");
+            _e.HasIndex(__ => __.Username)
+            .IsUnique(true);
+        })
+        .Entity<Group>(_e =>
+        {
+            _e.ToTable("groups");
+            _e.HasIndex(__ => __.Name).IsUnique(true);
         });
-
-        //_.Model
-        // .GetEntityTypes()
-        // .Where(__ => __
-        //    .GetDeclaredProperties()
-        //    .Any(___ => ___
-        //        .ClrType.CustomAttributes.Any(attr => attr.AttributeType == typeof(DefaultConstraintAttribute)
-        //    )
-        //    )
-        // )
-        // .ToList()
-        // .ForEach(__ => {
-        //     _.Entity(__.ClrType, _e =>
-        //     {
-
-        //         _e.ToTable(__.GetTableName(), _sql =>
-        //         {
-        //             _sql.
-        //         })
-        //         __.GetDeclaredProperties().Where(___ => ___.ClrType.CustomAttributes.Any(attr => attr.AttributeType == typeof(DefaultConstraintAttribute)))
-        //         .ToList()
-        //         .ForEach(___ =>
-        //         {
-                     
-        //         });
-        //     });
-        // });
     }
 }
-
+/// <summary>
+///     Convention to add Default constraint setted on the property columns
+///     attribute <see cref="DefaultConstraintAttribute"/>
+/// </summary>
 public class DefaultSetterConvention : IModelFinalizingConvention
 {
+    /// <summary>
+    ///     Convention to add Default constraint setted on the property columns
+    ///     attribute <see cref="DefaultConstraintAttribute"/>
+    /// </summary>
     public DefaultSetterConvention() { }
     public void ProcessModelFinalizing(IConventionModelBuilder modelBuilder, IConventionContext<IConventionModelBuilder> context)
     {

@@ -88,3 +88,47 @@ GO
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+GO
+
+ALTER TABLE [courses] DROP CONSTRAINT [FK_courses_Group_group_id];
+GO
+
+ALTER TABLE [Group] DROP CONSTRAINT [PK_Group];
+GO
+
+EXEC sp_rename N'[Group]', N'groups';
+GO
+
+ALTER TABLE [groups] ADD [name] varchar(500) NOT NULL DEFAULT '';
+GO
+
+ALTER TABLE [groups] ADD CONSTRAINT [PK_groups] PRIMARY KEY ([id]);
+GO
+
+CREATE TABLE [users] (
+    [id] int NOT NULL IDENTITY,
+    [created_date] datetime NOT NULL DEFAULT (getutcdate()),
+    [updated_date] datetime NOT NULL DEFAULT (getutcdate()),
+    [name] varchar(100) NOT NULL,
+    [password] varchar(100) NOT NULL,
+    CONSTRAINT [PK_users] PRIMARY KEY ([id])
+);
+GO
+
+CREATE UNIQUE INDEX [IX_groups_name] ON [groups] ([name]);
+GO
+
+CREATE UNIQUE INDEX [IX_users_name] ON [users] ([name]);
+GO
+
+ALTER TABLE [courses] ADD CONSTRAINT [FK_courses_groups_group_id] FOREIGN KEY ([group_id]) REFERENCES [groups] ([id]);
+GO
+
+INSERT INTO [migrations] ([MigrationId], [ProductVersion])
+VALUES (N'20240327122512_v_2', N'7.0.16');
+GO
+
+COMMIT;
+GO
+

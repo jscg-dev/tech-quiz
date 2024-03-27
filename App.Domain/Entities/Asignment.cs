@@ -4,7 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace App.Domain.Entities;
-
+/// <summary>
+///     Relation students - courses table
+///     Tabla de relación estudiantes - materias
+/// </summary>
 public class Asignment : DbMainTable
 {
     [
@@ -32,7 +35,7 @@ public class Asignment : DbMainTable
     public virtual Course Course { get; set; }
 
     [
-        JsonPropertyName("marks")
+        JsonPropertyName("mark")
     ]
-    public virtual IEnumerable<Mark> Marks { set; get; }
+    public virtual Mark Mark { set; get; }
 }

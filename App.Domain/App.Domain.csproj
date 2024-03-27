@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Context\Enums\" />
+    <Folder Include="Shared\Scripts\" />
   </ItemGroup>
 
 </Project>
